@@ -1,13 +1,11 @@
 <template>
-    <NavBar/>
+  <NavBar />
 </template>
 
 <script>
-// @ is an alias to /src
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar'
 
 export default {
-  name: 'home',
   components: {
     NavBar
   }
