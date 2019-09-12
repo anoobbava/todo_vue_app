@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import ApiHelper from '@/services/ApiHelper'
 
 Vue.use(Vuex)
-
-axios.defaults.baseURL = process.env.VUE_APP_RAILS_API_URL
 
 export default new Vuex.Store({
   state: {
@@ -40,11 +39,12 @@ export default new Vuex.Store({
       // update the state to loading
       commit('loadingMutation')
       return new Promise((resolve, reject) => {
-        axios.post('login', userDetails)
+        // call API 
+        ApiHelper.login(userDetails)
           .then(response => {
             // success response, save the response to the vuex Store
-            const token = response.data.auth_token
-            const user = response.data.user
+            const token = response.auth_token
+            const user = response.user
             commit('loginSucessMutation', { token, user })
             // save the token to the localStorage and update to the axios
             localStorage.setItem('token', token)
