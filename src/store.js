@@ -4,6 +4,8 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+axios.defaults.baseURL = process.env.VUE_APP_RAILS_API_URL
+
 export default new Vuex.Store({
   state: {
     user: {},
@@ -13,19 +15,19 @@ export default new Vuex.Store({
 
   mutations: {
     // will set the status to loading
-    loadingMutation(state) {
+    loadingMutation (state) {
       state.status = 'loading'
-     },
+    },
 
     // will set the loading and token to success
-    loginSucessMutation(state, token, user) {
+    loginSucessMutation (state, token, user) {
       state.status = 'success'
       state.token = token
       state.user = user
     },
 
     // this will set the loading as False
-    loginFailureMutation(state) {
+    loginFailureMutation (state) {
       state.status = 'failure'
       state.token = ''
       state.user = {}
@@ -38,7 +40,7 @@ export default new Vuex.Store({
       // update the state to loading
       commit('loadingMutation')
       return new Promise((resolve, reject) => {
-        axios.post('http://127.0.0.1:3000/login', userDetails)
+        axios.post('login', userDetails)
           .then(response => {
             // success response, save the response to the vuex Store
             const token = response.data.auth_token
