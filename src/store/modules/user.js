@@ -1,11 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import axios from 'axios'
 import ApiHelper from '@/services/ApiHelper'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default {
   state: {
     user: {},
     token: localStorage.getItem('token') || '',
@@ -39,7 +35,7 @@ export default new Vuex.Store({
       // update the state to loading
       commit('loadingMutation')
       return new Promise((resolve, reject) => {
-        // call API 
+        // call API
         ApiHelper.login(userDetails)
           .then(response => {
             // success response, save the response to the vuex Store
@@ -60,4 +56,4 @@ export default new Vuex.Store({
       })
     }
   }
-})
+}
