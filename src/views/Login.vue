@@ -46,7 +46,9 @@
 
               <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn color="primary">Login</v-btn>
+                <v-btn color="primary"
+                @click="validateLogin"
+                >Login</v-btn>
                 <v-btn
                   color="error"
                   @click="resetForm"
@@ -62,23 +64,29 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        email: '',
-        password: ''
-      }
+import { mapActions } from 'vuex'
+export default {
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    ...mapActions(['loginAction']),
+    // will reset the email and password
+    resetForm () {
+      this.email = ''
+      this.password = ''
     },
-    methods: {
-      // will reset the email and password
-      resetForm () {
-        this.email = ''
-        this.password = ''
-      },
-      // will call the API and return the result
-      validateLogin () {
-
+    // will call the API and return the result
+    validateLogin () {
+      const userDetails = {
+        email: this.email,
+        password: this.password
       }
+      this.loginAction(userDetails)
     }
   }
+}
 </script>
