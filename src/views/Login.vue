@@ -65,6 +65,8 @@
 
 <script>
 import { mapActions } from 'vuex'
+import SweetAlert from '@/services/SweetAlert'
+
 export default {
   data () {
     return {
@@ -86,6 +88,16 @@ export default {
         password: this.password
       }
       this.loginAction(userDetails)
+        .then(() => {
+          this.$router.push('/')
+          this.resetForm()
+          SweetAlert.successfulLogin()
+        })
+        .catch(() => {
+          this.$router.push('/login')
+          this.resetForm()
+          SweetAlert.failureLogin()
+        })
     }
   }
 }

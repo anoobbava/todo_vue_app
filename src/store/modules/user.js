@@ -3,7 +3,7 @@ import ApiHelper from '@/services/ApiHelper'
 
 export default {
   state: {
-    user: {},
+    user: '',
     token: localStorage.getItem('token') || '',
     status: null
   },
@@ -15,10 +15,10 @@ export default {
     },
 
     // will set the loading and token to success
-    loginSucessMutation (state, token, user) {
+    loginSucessMutation (state, { token, userObject }) {
       state.status = 'success'
       state.token = token
-      state.user = user
+      state.user = userObject
     },
 
     // this will set the loading as False
@@ -40,8 +40,8 @@ export default {
           .then(response => {
             // success response, save the response to the vuex Store
             const token = response.auth_token
-            const user = response.user
-            commit('loginSucessMutation', { token, user })
+            const userObject = response.user
+            commit('loginSucessMutation', { token, userObject })
             // save the token to the localStorage and update to the axios
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
@@ -55,5 +55,12 @@ export default {
           })
       })
     }
+  },
+
+  getters: {
+    isLoggedIn: state => state.status === 'success',
+    userName: state => state.user.name,
+    status: state => state.status,
+    token: state => state.token
   }
 }
