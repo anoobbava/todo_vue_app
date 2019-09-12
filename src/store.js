@@ -16,14 +16,14 @@ export default new Vuex.Store({
     loadingMutation(state) { },
 
     // will set the loading and token to success
-    loadingSucessMutation(state, token, user) { },
+    loginSucessMutation(state, token, user) { },
 
     // this will set the loading as False
-    loadingFailureMutation(state) { }
+    loginFailureMutation(state) { }
   },
 
   actions: {
     // this will be called from the components and call th loginMutation.
-    loginAction({ commit }, userDetails) { })
+    loginAction({ commit }, userDetails) { }
   }
 })
