@@ -23,25 +23,38 @@
                 </v-tooltip>
               </v-toolbar>
               <v-card-text>
+
                 <v-form>
+                  <!-- text field login -->
                   <v-text-field
                     label="Login"
                     name="login"
                     type="text"
+                    v-model="email"
                   ></v-text-field>
 
+                  <!-- text field password -->
                   <v-text-field
-                    id="password"
                     label="Password"
                     name="password"
                     type="password"
+                    v-model="password"
                   ></v-text-field>
                 </v-form>
+
               </v-card-text>
+
               <v-card-actions>
                 <div class="flex-grow-1"></div>
                 <v-btn color="primary">Login</v-btn>
+                <v-btn
+                  color="error"
+                  @click="resetForm"
+                  class="reset">
+                  Reset Form
+                </v-btn>
               </v-card-actions>
+
             </v-card>
           </v-col>
         </v-row>
@@ -50,5 +63,22 @@
 
 <script>
   export default {
+    data() {
+      return {
+        email: '',
+        password: ''
+      }
+    },
+    methods: {
+      // will reset the email and password
+      resetForm () {
+        this.email = ''
+        this.password = ''
+      },
+      // will call the API and return the result
+      validateLogin () {
+
+      }
+    }
   }
 </script>
