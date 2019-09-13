@@ -26,6 +26,12 @@ export default {
       state.status = 'failure'
       state.token = ''
       state.user = {}
+    },
+
+    logoutMutation (state) {
+      state.user = ''
+      state.token = ''
+      state.status = null
     }
   },
 
@@ -54,6 +60,11 @@ export default {
             reject(error)
           })
       })
+    },
+
+    logoutAction ({ commit }) {
+      commit('logoutMutation')
+      localStorage.removeItem('token')
     }
   },
 

@@ -8,7 +8,9 @@
       <div class="flex-grow-1"></div>
       <v-toolbar-items v-if="isLoggedIn">
         <v-btn text >Add Todo</v-btn>
-        <v-btn text >SignOut</v-btn>
+        <v-btn text
+        @click="logoutAction"
+        >SignOut</v-btn>
       </v-toolbar-items>
 
       <v-toolbar-items v-else>
@@ -20,7 +22,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
 
   computed: {
@@ -28,6 +31,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['logoutAction']),
     redirectToHome () {
       this.$router.push('/')
     },
