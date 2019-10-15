@@ -5,5 +5,10 @@ export default {
   async login (userDetails) {
     const response = await axios.post('login', userDetails)
     return response.data
+  },
+
+  async todos () {
+    const response = await axios.get('todos')
+    return response.data
   }
 }
