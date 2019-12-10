@@ -4,12 +4,12 @@
       v-model="task"
       label="What are you working on?"
       solo
-      @keydown.enter="create"
+      @keydown.enter="createTodo"
     >
       <v-fade-transition v-slot:append>
         <v-icon
           v-if="task"
-          @click="create"
+          @click="createTodo"
         >
           add_circle
         </v-icon>
@@ -97,7 +97,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import SweetAlert from '@/services/SweetAlert'
+
 export default {
   data: () => ({
     task: null
@@ -121,7 +123,18 @@ export default {
   },
 
   methods: {
-    create () {
+    ...mapActions(['saveTodoAction']),
+
+    createTodo () {
+      const todoData = { 'title': this.task}
+      this.saveTodoAction(todoData)
+        .then(() => {
+          this.task = ''
+          SweetAlert.successfulLogin()
+        })
+        .catch(() => {
+          SweetAlert.failureLogin()
+        })
     }
   }
 }

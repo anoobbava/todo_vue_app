@@ -3,7 +3,7 @@ import ApiHelper from '@/services/ApiHelper'
 export default {
 
   state: {
-    todos: ''
+    todos: []
   },
 
   actions: {
@@ -19,6 +19,19 @@ export default {
             reject(error)
           })
       })
+    },
+
+    saveTodoAction ({ commit }, todoData) {
+      return new Promise((resolve, reject) => {
+        ApiHelper.todo(todoData)
+          .then(response => {
+            commit('saveTodoMutation', response)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     }
   },
 
@@ -28,7 +41,11 @@ export default {
     },
 
     failureTodoMutation (state) {
-      state.todos = ''
+      state.todos = []
+    },
+
+    saveTodoMutation (state, todo) {
+      state.todos = [...state.todos, todo]
     }
   },
 

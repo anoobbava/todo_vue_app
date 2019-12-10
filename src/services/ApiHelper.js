@@ -10,5 +10,10 @@ export default {
   async todos () {
     const response = await axios.get('todos')
     return response.data
+  },
+
+  async todo (todoData) {
+    const response = await axios.post('todos', todoData)
+    return response.data
   }
 }
