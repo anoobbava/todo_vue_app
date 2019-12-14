@@ -126,7 +126,7 @@ export default {
     ...mapActions(['saveTodoAction']),
 
     createTodo () {
-      const todoData = { 'title': this.task}
+      const todoData = { 'title': this.task }
       this.saveTodoAction(todoData)
         .then(() => {
           this.task = ''
