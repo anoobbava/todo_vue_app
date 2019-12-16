@@ -69,6 +69,7 @@
               <v-checkbox
                 v-model="task.is_completed"
                 color="info darken-3"
+                @change="updateTodo(task)"
               >
                 <template v-slot:label>
                   <div
@@ -78,6 +79,7 @@
                   ></div>
                 </template>
               </v-checkbox>
+
             </v-list-item-action>
 
             <v-spacer></v-spacer>
@@ -123,7 +125,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['saveTodoAction']),
+    ...mapActions(['saveTodoAction', 'updateTodoAction']),
 
     createTodo () {
       const todoData = { 'title': this.task }
@@ -135,6 +137,12 @@ export default {
         .catch(() => {
           SweetAlert.failureLogin()
         })
+    },
+
+    updateTodo(todo) {
+      this.updateTodoAction(todo)
+        .then(() => SweetAlert.successfulLogin())
+        .catch(() => SweetAlert.failureLogin())
     }
   }
 }

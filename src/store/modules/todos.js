@@ -32,6 +32,19 @@ export default {
             reject(error)
           })
       })
+    },
+
+    updateTodoAction ({ commit }, todo) {
+      return new Promise((resolve, reject) => {
+        ApiHelper.updateTodo(todo)
+          .then(response => {
+            commit('updateTodoMutation', response)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     }
   },
 
@@ -46,10 +59,15 @@ export default {
 
     saveTodoMutation (state, todo) {
       state.todos = [...state.todos, todo]
+    },
+
+    updateTodoMutation (state, todo) {
+      let index = state.todos.findIndex(element => element.id === todo.id)
+      state.todos[index] = todo
     }
   },
 
   getters: {
-    allTodos: state => state.todos
+    allTodos: state => state.todos.sort((a, b) => b.id - a.id)
   }
 }
