@@ -37,7 +37,7 @@ export default {
 
   actions: {
     // this will be called from the components and call the loginMutation.
-    loginAction ({ commit }, userDetails) {
+    loginAction ({ commit, dispatch }, userDetails) {
       // update the state to loading
       commit('loadingMutation')
       return new Promise((resolve, reject) => {
@@ -51,6 +51,7 @@ export default {
             // save the token to the localStorage and update to the axios
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
+            dispatch('fetchAllTodoAction', null, { root: true })
             resolve(response)
           })
           .catch(error => {
