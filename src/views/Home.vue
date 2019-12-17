@@ -139,7 +139,7 @@ export default {
         })
     },
 
-    updateTodo(todo) {
+    updateTodo (todo) {
       this.updateTodoAction(todo)
         .then(() => SweetAlert.successfulLogin())
         .catch(() => SweetAlert.failureLogin())
